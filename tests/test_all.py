@@ -1,3 +1,4 @@
+"Updated version"
 import numpy as np
 from rapport import build_image_like_tensor, normalize_tensor, sigmoid, softmax
 from rapport import (
@@ -6,6 +7,7 @@ from rapport import (
     convolution_forward_numpy,
     convolution_forward_torch,
     fashion_mnist_dataset_answer,
+    target_to_one_hot,
 )
 
 
@@ -38,7 +40,9 @@ def test_one_hot():
 
 def test_sigmoid():
     arr = np.arange(6).reshape(2, -1)
-    arr_test = np.array([[0.5, 0.73105858, 0.88079708], [0.95257413, 0.98201379, 0.99330715]])
+    arr_test = np.array(
+        [[0.5, 0.73105858, 0.88079708], [0.95257413, 0.98201379, 0.99330715]]
+    )
     assert np.allclose(sigmoid(arr), arr_test)
 
 
