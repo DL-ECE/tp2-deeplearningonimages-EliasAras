@@ -1,0 +1,113 @@
+{
+  "tests": [{
+      "name": "build_320_240_3_1_tensor",
+      "setup": "",
+      "run": "poetry run pytest tests/test_all.py::build_320_240_3_1_tensor",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "build_20_40_1_10_tensor",
+      "setup": "",
+      "run": "poetry run pytest tests/test_all.py::build_20_40_1_10_tensor",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "test_normalize",
+      "setup": "",
+      "run": "poetry run pytest tests/test_all.py::test_normalize",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "test_one_hot",
+      "setup": "",
+      "run": "poetry run pytest tests/test_all.py::test_one_hot",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "test_sigmoid",
+      "setup": "",
+      "run": "poetry run pytest tests/test_all.py::test_sigmoid",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "test_softmax",
+      "setup": "",
+      "run": "poetry run pytest tests/test_all.py::test_softmax",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "test_R0",
+      "setup": "",
+      "run": "poetry run pytest tests/test_all.py::test_R0",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "test_R1",
+      "setup": "",
+      "run": "poetry run pytest tests/test_all.py::test_R1",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "test_conv_numpy",
+      "setup": "",
+      "run": "poetry run pytest tests/test_all.py::test_convolution_numpy",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 2
+    },
+    {
+      "name": "test_convolution_torch",
+      "setup": "",
+      "run": "poetry run pytest tests/test_all.py::test_convolution_torch",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 2
+    },
+    {
+      "name": "test_fashion_mnist_dataset_answer",
+      "setup": "",
+      "run": "poetry run pytest tests/test_all.py::test_fashion_mnist_dataset_answer",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    }
+  ]
+}

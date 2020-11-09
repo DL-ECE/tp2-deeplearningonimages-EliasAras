@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "numpy-refresh"
+version = "0.1.0"
+description = ""
+authors = ["Thomas Aubry <github.thomaub@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "3.6.9"
+numpy = "1.18.5"
+scikit-learn = "^0.23.2"
+matplotlib = "^3.3.2"
+torch = "^1.7.0"
+torchvision = "^0.8.1"
+imageio = "^2.9.0"
+tqdm = "^4.51.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.1.1"
+ipykernel = "^5.3.4"
+black = {version = "^20.8b1", allow-prereleases = true}
+mypy = "^0.790"
+bandit = "^1.6.2"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
