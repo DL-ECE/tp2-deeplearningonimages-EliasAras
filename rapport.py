@@ -770,6 +770,8 @@ if __name__ == "__main__":
 """## Open Analysis
 Same as TP 1 please write a short description of your experiment
 
+Le nombre d’époque (nepoch) a été fixé à 24 car le learning rate est petit 0.009, cela permet d’augmenter l’accuracy avec plus de précision quand on arrive aux alentours des 99% pour les trainings et 98% pour les tests. Le momentum a été diminué à 0.5 mais je me suis rendu compte que cela impacté négativement le training de même si la valeur est plus grande que 1.
+
 # BONUS 
 
 Use some already trained CNN to segment YOUR image. 
