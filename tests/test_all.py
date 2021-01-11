@@ -1,12 +1,34 @@
+"Updated version"
+
+import ast
+import types
+import sys
 import numpy as np
-from rapport import build_image_like_tensor, normalize_tensor, sigmoid, softmax
-from rapport import (
-    R_0,
-    R_1,
-    convolution_forward_numpy,
-    convolution_forward_torch,
-    fashion_mnist_dataset_answer,
-)
+
+
+prefix = "import os\nfrom torchvision import transforms\nfrom torchvision.datasets import MNIST, FashionMNIST\nfmnist_train = FashionMNIST(os.getcwd(), train=True, download=True, transform=transforms.ToTensor())\n"
+with open("rapport.py") as f:
+    p = ast.parse(prefix + f.read())
+
+for node in p.body[:]:
+    if not isinstance(node, (ast.FunctionDef, ast.Import, ast.ImportFrom, ast.Assign)):
+        p.body.remove(node)
+
+module = types.ModuleType("mod")
+code = compile(p, "mod.py", "exec")
+sys.modules["mod"] = module
+exec(code, module.__dict__)
+from mod import *
+
+# from rapport import build_image_like_tensor, normalize_tensor, sigmoid, softmax
+# from rapport import (
+#    R_0,
+#    R_1,
+#    convolution_forward_numpy,
+#    convolution_forward_torch,
+#    fashion_mnist_dataset_answer,
+#    target_to_one_hot,
+# )
 
 
 def test_build_image_like_tensor():
@@ -38,7 +60,9 @@ def test_one_hot():
 
 def test_sigmoid():
     arr = np.arange(6).reshape(2, -1)
-    arr_test = np.array([[0.5, 0.73105858, 0.88079708], [0.95257413, 0.98201379, 0.99330715]])
+    arr_test = np.array(
+        [[0.5, 0.73105858, 0.88079708], [0.95257413, 0.98201379, 0.99330715]]
+    )
     assert np.allclose(sigmoid(arr), arr_test)
 
 
@@ -53,11 +77,11 @@ def test_softmax():
 def test_R0():
     arr_test = np.array(
         [
+            [0, 0, 0, 0, 0],
+            [252, 49, 113, 11, 137],
             [18, 237, 163, 119, 53],
             [90, 89, 178, 75, 247],
             [209, 216, 48, 135, 232],
-            [229, 53, 107, 106, 222],
-            [229, 53, 107, 106, 222],
         ]
     )
     assert np.allclose(R_0, arr_test)
@@ -66,23 +90,54 @@ def test_R0():
 def test_R1():
     arr_test = np.array(
         [
-            [980, 249, 911, 129, 625],
-            [-194, 1128, 984, 834, 549],
-            [811, 500, 770, 455, 1609],
-            [1287, 1112, 164, 610, 1141],
-            [1022, 181, 402, 550, 1061],
+            [1005, -173, 46, -280, 513],
+            [212, 1242, 646, 356, 91],
+            [280, 390, 1010, 295, 1040],
+            [942, 1048, 316, 740, 1154],
+            [1570, 738, 934, 945, 1477],
         ]
     )
     assert np.allclose(R_1, arr_test)
 
 
 def test_convolution_numpy():
-    image = np.ones((10, 10))
-    kernel = np.array([[0, 2, 0], [0, 1, 0], [0, 1, 0]])
+    K_0 = np.array([[0, 1, 0], [0, 0, 0], [0, 0, 0]])
+    K_1 = np.array([[1, 1, 1], [0, 5, 0], [-1, -1, -1]])
 
-    expected_result = np.full((10, 10), 4)
-    student_result = convolution_forward_numpy(image, kernel)
-    assert np.allclose(expected_result, student_result)
+    I = np.array(
+        [
+            [252, 49, 113, 11, 137],
+            [18, 237, 163, 119, 53],
+            [90, 89, 178, 75, 247],
+            [209, 216, 48, 135, 232],
+            [229, 53, 107, 106, 222],
+        ]
+    )
+
+    expected_test_K0 = np.array(
+        [
+            [0, 0, 0, 0, 0],
+            [252, 49, 113, 11, 137],
+            [18, 237, 163, 119, 53],
+            [90, 89, 178, 75, 247],
+            [209, 216, 48, 135, 232],
+        ]
+    )
+
+    expected_test_K1 = np.array(
+        [
+            [1005, -173, 46, -280, 513],
+            [212, 1242, 646, 356, 91],
+            [280, 390, 1010, 295, 1040],
+            [942, 1048, 316, 740, 1154],
+            [1570, 738, 934, 945, 1477],
+        ]
+    )
+
+    student_result_K0 = convolution_forward_numpy(I, K_0)
+    student_result_K1 = convolution_forward_numpy(I, K_1)
+    assert np.allclose(expected_test_K0, student_result_K0)
+    assert np.allclose(expected_test_K1, student_result_K1)
 
 
 def test_convolution_torch():
