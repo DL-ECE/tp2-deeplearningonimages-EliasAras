@@ -1,14 +1,34 @@
 "Updated version"
+
+import ast
+import types
+import sys
 import numpy as np
-from rapport import build_image_like_tensor, normalize_tensor, sigmoid, softmax
-from rapport import (
-    R_0,
-    R_1,
-    convolution_forward_numpy,
-    convolution_forward_torch,
-    fashion_mnist_dataset_answer,
-    target_to_one_hot,
-)
+
+
+prefix = "import os\nfrom torchvision import transforms\nfrom torchvision.datasets import MNIST, FashionMNIST\nfmnist_train = FashionMNIST(os.getcwd(), train=True, download=True, transform=transforms.ToTensor())\n"
+with open("rapport.py") as f:
+    p = ast.parse(prefix + f.read())
+
+for node in p.body[:]:
+    if not isinstance(node, (ast.FunctionDef, ast.Import, ast.ImportFrom, ast.Assign)):
+        p.body.remove(node)
+
+module = types.ModuleType("mod")
+code = compile(p, "mod.py", "exec")
+sys.modules["mod"] = module
+exec(code, module.__dict__)
+from mod import *
+
+# from rapport import build_image_like_tensor, normalize_tensor, sigmoid, softmax
+# from rapport import (
+#    R_0,
+#    R_1,
+#    convolution_forward_numpy,
+#    convolution_forward_torch,
+#    fashion_mnist_dataset_answer,
+#    target_to_one_hot,
+# )
 
 
 def test_build_image_like_tensor():
